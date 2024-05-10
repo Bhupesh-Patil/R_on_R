@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMI Calculator</title>
+<style>
+ body {
+ font-family: Arial, sans-serif;
+ margin: 0;
+ padding: 0;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ height: 100vh;
+ background-color: #f4f4f4;
+ }
+ .container {
+ background-color: #fff;
+ padding: 20px;
+ border-radius: 5px;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ }
+ input[type="number"] {
+ width: 100px;
+ padding: 5px;
+ }
+ button {
+ padding: 8px 20px;
+ background-color: #007bff;
+ color: #fff;
+ border: none;
+ border-radius: 3px;
+ cursor: pointer;
+ }
+ button:hover {
+ background-color: #0056b3;
+ }
+ #result {
+ margin-top: 10px;
+ }
+ .underweight {
+ color: #007bff;
+ }
+ .normal-weight {
+ color: #28a745;
+ }
+ .overweight {
+ color: #ffc107;
+ }
+ .obese {
+ color: #dc3545;
+ }
+</style>
+</head>
+<body>
+<div class="container">
+ <h2>BMI Calculator</h2>
+ <div>
+ <label for="height">Height (cm):</label>
+ <input type="number" id="height" min="1" step="any">
+ </div>
+ <div>
+ <label for="weight">Weight (kg):</label>
+ <input type="number" id="weight" min="1" step="any">
+ </div>
+ <button onclick="calculateBMI()">Calculate</button>
+ <div id="result"></div>
+ <script>
+ function calculateBMI() {
+ var height = parseFloat(document.getElementById('height').value);
+ var weight = parseFloat(document.getElementById('weight').value);
+ if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+ document.getElementById('result').innerText = "Please enter valid height and weight.";
+ return;
+ }
+ var bmi = weight / ((height / 100) * (height / 100));
+ var bmiCategory;
+ if (bmi < 18.5) {
+ bmiCategory = "Underweight";
+ } else if (bmi >= 18.5 && bmi < 25) {
+ bmiCategory = "Normal weight";
+ } else if (bmi >= 25 && bmi < 30) {
+ bmiCategory = "Overweight";
+ } else {
+ bmiCategory = "Obese";
+ }
+ var resultText = "Your BMI is: " + bmi.toFixed(2) + ". You are ";
+ switch(bmiCategory) {
+ case "Underweight":
+ resultText += "<span class='underweight'>" + bmiCategory + "</span>.";
+ break;
+ case "Normal weight":
+ resultText += "<span class='normal-weight'>" + bmiCategory + "</span>.";
+ break;
+ case "Overweight":
+ resultText += "<span class='overweight'>" + bmiCategory + "</span>.";
+ break;
+ case "Obese":
+ resultText += "<span class='obese'>" + bmiCategory + "</span>.";
+ break;
+ }
+ document.getElementById('result').innerHTML = resultText;
+ }
+ </script>
+</div>
+</body>
+</html>
